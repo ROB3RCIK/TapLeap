@@ -1,5 +1,6 @@
 package io.github.tapleap;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
@@ -16,8 +17,16 @@ public class Obstacle {
         hitbox = new Rectangle(x,y,width,height);
     }
 
+    public boolean isVisible(OrthographicCamera camera) {
+        float cameraLeft = camera.position.x - camera.viewportWidth / 2f;
+        float cameraRight = camera.position.x + camera.viewportWidth / 2f;
+
+        return hitbox.x + hitbox.width > cameraLeft && hitbox.x < cameraRight;
+    }
+
+
     public void render(SpriteBatch batch) {
-        batch.draw(texture,position.x,position.y,hitbox.width,hitbox.height);
+        batch.draw(texture,hitbox.x,hitbox.y,hitbox.width,hitbox.height);
     }
 
     public Rectangle getHitbox() {
