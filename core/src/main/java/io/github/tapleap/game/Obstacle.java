@@ -1,4 +1,4 @@
-package io.github.tapleap;
+package io.github.tapleap.game;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;

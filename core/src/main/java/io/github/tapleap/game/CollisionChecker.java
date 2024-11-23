@@ -1,6 +1,5 @@
-package io.github.tapleap;
+package io.github.tapleap.game;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 
 import java.util.List;
@@ -23,7 +22,7 @@ public class CollisionChecker {
             return true;
         }
 
-        // Sprawdzenie kolizji z lewą i prawą granicą (opcjonalne)
+        // Sprawdzenie kolizji z lewą i prawą granicą
         if (hitbox.x < 0 || hitbox.x + hitbox.width > worldWidth) {
             return true;
         }

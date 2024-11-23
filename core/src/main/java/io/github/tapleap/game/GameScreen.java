@@ -1,4 +1,4 @@
-package io.github.tapleap;
+package io.github.tapleap.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -9,6 +9,9 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.github.tapleap.end.GameOverScreen;
+import io.github.tapleap.Main;
 
 public class GameScreen implements Screen {
     private Main game;
@@ -51,14 +54,6 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        if (isGameOver) {
-            Gdx.gl.glClearColor(1, 0, 0, 1);
-            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-            game.batch.begin();
-            game.batch.end();
-            return;
-        }
-
         updateCamera();
 
         Gdx.gl.glClearColor(0.8f, 0.8f, 0.8f, 1);
@@ -108,18 +103,21 @@ public class GameScreen implements Screen {
 
     private void checkCollision() {
         if (collisionChecker.isOutOfScreen(player)) {
+            Gdx.app.log("GameScreen", "Collision - OutOfScreen");
             endGame();
         }
 
         if (collisionChecker.isCollidingWithObstacles(player, obstacles)) {
+            Gdx.app.log("GameScreen", "Collision - with Obstacles");
             endGame();
         }
     }
 
     private void endGame() {
-        Gdx.app.log("GameScreen", "Game Over!");
+        Gdx.app.log("GameScreen", "Game Over");
         isGameOver = true;
-        // Logika końca gry
+
+        game.setScreen(new GameOverScreen(game));
     }
 
     @Override
