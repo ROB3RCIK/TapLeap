@@ -20,6 +20,7 @@ public class Player {
         position = new Vector2(50, 50);
         hitbox = new Rectangle(position.x, position.y, width, height);
 
+        // Predkość i kąt lotu
         velocity = new Vector2(500, 0);
         velocity.rotateDeg(angle);
     }
@@ -30,6 +31,7 @@ public class Player {
 
         hitbox.setPosition(position.x, position.y);
 
+        //Zmiana kierunku lotu
         if(Gdx.input.justTouched()) {
             velocity.y *= -1;
         }
