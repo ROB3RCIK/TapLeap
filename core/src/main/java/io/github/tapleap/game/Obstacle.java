@@ -24,7 +24,6 @@ public class Obstacle {
         return hitbox.x + hitbox.width > cameraLeft && hitbox.x < cameraRight;
     }
 
-
     public void render(SpriteBatch batch) {
         batch.draw(texture,hitbox.x,hitbox.y,hitbox.width,hitbox.height);
     }
@@ -36,5 +35,4 @@ public class Obstacle {
     public void dispose() {
         texture.dispose();
     }
-
 }
