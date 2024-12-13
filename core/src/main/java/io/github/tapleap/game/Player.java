@@ -15,13 +15,13 @@ public class Player {
     private Vector2 velocity;
     private final float angle = 30f;
 
-    public Player(float width, float height) {
+    public Player(float width, float height, float playerSpeed) {
         texture = new Texture("triangle.png");
         position = new Vector2(50, 50);
         hitbox = new Rectangle(position.x, position.y, width, height);
 
         // Predkość i kąt lotu
-        velocity = new Vector2(500, 0);
+        velocity = new Vector2(playerSpeed, 0);
         velocity.rotateDeg(angle);
     }
 
