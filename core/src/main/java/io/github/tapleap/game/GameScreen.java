@@ -3,9 +3,11 @@ package io.github.tapleap.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.Rectangle;
@@ -30,6 +32,7 @@ public class GameScreen implements Screen, InputProcessor {
     private ShapeRenderer shapeRenderer;
     private Rectangle pauseButtonBounds;
     private Texture pauseButtonTexture;
+    private float progress;
 
     public GameScreen(Main game, int worldWidth) {
         this.game = game;
@@ -73,6 +76,16 @@ public class GameScreen implements Screen, InputProcessor {
     public void render(float delta) {
         updateCamera();
 
+        // Aktualizacja postępu
+        updateProgress();
+
+        // Sprawdzenie, czy gracz osiągnął 100%
+        if (progress >= 100) {
+            Gdx.app.log("GameScreen", "Player reached 100% of the map!");
+            game.setScreen(new GameOverScreen(game)); // Zmień na odpowiedni ekran
+            return;
+        }
+
         // Tło
         Gdx.gl.glClearColor(0.8f, 0.8f, 0.8f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -94,6 +107,9 @@ public class GameScreen implements Screen, InputProcessor {
         // Przyciski
         drawPauseButton();
 
+        // Wyświetlenie postępu
+        drawProgress();
+
         game.batch.end();
 
         // Obramowanie
@@ -101,6 +117,41 @@ public class GameScreen implements Screen, InputProcessor {
 
         // Kolizje
         checkCollision();
+    }
+
+    private void updateProgress() {
+        float playerPosition = player.getPosition().x;
+        float threshold = worldWidth * 0.95f;
+
+        if (playerPosition >= threshold) {
+            progress = 100;
+            endGame();
+        } else {
+            progress = Math.min(95, (playerPosition / threshold) * 95);
+        }
+    }
+
+    private void drawProgress() {
+        String progressText = String.format("Progress: %.1f%%", progress);
+
+        // Ustawienie skali tekstu
+        game.font.getData().setScale(4.0f); // Zwiększenie skali czcionki (wartość 2x większa)
+
+        // Obliczanie pozycji
+        float textWidth = game.font.getRegion().getRegionWidth();
+        float x = camera.position.x - textWidth / 2 - 100;
+        float y = camera.position.y + viewport.getWorldHeight() / 2 - 100; // Bliżej górnej krawędzi (odległość 100 jednostek)
+
+        // Rysowanie tekstu
+        game.font.draw(
+            game.batch,
+            progressText,
+            x,
+            y
+        );
+
+        // Przywrócenie domyślnej skali, jeśli potrzeba
+        game.font.getData().setScale(1.0f);
     }
 
     private void updateCamera() {
