@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 import io.github.tapleap.game.GameScreen;
+import io.github.tapleap.start.StartScreen;
 
 
 public class Main extends Game {
@@ -17,8 +18,8 @@ public class Main extends Game {
     public void create() {
         batch = new SpriteBatch();
         font = new BitmapFont();
-        //setScreen(new StartScreen(this));
-        setScreen(new GameScreen(this,5000));
+        setScreen(new StartScreen(this));
+//        setScreen(new GameScreen(this,5000));
     }
 
     @Override
