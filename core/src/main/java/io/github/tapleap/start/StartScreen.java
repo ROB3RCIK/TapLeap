@@ -88,8 +88,8 @@ public class StartScreen implements Screen {
             camera.unproject(touchPos);
 
             if (startButtonBounds.contains(touchPos.x, touchPos.y)) {
-                Gdx.app.log("StartScreen", "Start button clicked!");
-                game.setScreen(new GameScreen(game,5000));
+                Gdx.app.log("StartScreen", "Level button clicked!");
+                game.setScreen(new LevelScreen(game));
             } else if (settingsButtonBounds.contains(touchPos.x, touchPos.y)) {
                 Gdx.app.log("StartScreen", "Settings button clicked!");
                 game.setScreen(new SettingsScreen(game,this));

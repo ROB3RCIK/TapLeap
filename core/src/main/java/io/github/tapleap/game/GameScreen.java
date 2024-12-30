@@ -33,30 +33,35 @@ public class GameScreen implements Screen, InputProcessor {
     private Rectangle pauseButtonBounds;
     private Texture pauseButtonTexture;
     private float progress;
+    private float playerSpeed; // Prędkość gracza
 
-    public GameScreen(Main game, int worldWidth) {
+    public GameScreen(Main game, int worldWidth, int[][] obstaclesArray, float playerSpeed) {
         this.game = game;
 
         // Długość i wysokość planszy
         this.worldWidth = worldWidth;
         this.worldHeight = 1000; // Stała wysokość planszy
 
+        // Prędkość gracza
+        this.playerSpeed = playerSpeed;
+
         // Tworzenie gracza
-        player = new Player(50, 50);
+        player = new Player(50, 50, playerSpeed);
 
         // Przeszkody
         obstacles = new ArrayList<>();
-        obstacles.add(new Obstacle(1200, 300, 200, 200));
-        obstacles.add(new Obstacle(1500, 700, 200, 200));
+        for (int[] obstacleData : obstaclesArray) {
+            obstacles.add(new Obstacle(obstacleData[0], obstacleData[1], obstacleData[2], obstacleData[3]));
+        }
 
         // Obramowanie
         shapeRenderer = new ShapeRenderer();
 
-        // Ustawienia kamery
+        // Ustawienie kamery
         camera = new OrthographicCamera();
         float aspectRatio = (float) Gdx.graphics.getWidth() / Gdx.graphics.getHeight();
         viewport = new FitViewport(worldHeight * aspectRatio, worldHeight, camera);
-        camera.position.set( viewport.getWorldWidth() / 2f, worldHeight / 2f, 0);
+        camera.position.set(viewport.getWorldWidth() / 2f, worldHeight / 2f, 0);
         camera.update();
 
         // Przyciski
@@ -71,6 +76,7 @@ public class GameScreen implements Screen, InputProcessor {
         // Koniec gry
         isGameOver = false;
     }
+
 
     @Override
     public void render(float delta) {
@@ -155,14 +161,16 @@ public class GameScreen implements Screen, InputProcessor {
     }
 
     private void updateCamera() {
-        // Kamera podąża za graczem w poziomie
-        camera.position.x = Math.max(viewport.getWorldWidth() / 2f,
-            Math.min(player.getPosition().x + player.getWidth() / 2f, worldWidth - viewport.getWorldWidth() / 2f));
-        // Stała pozycja kamery w pionie
-        camera.position.y = worldHeight / 2f;
+        // Kamera podąża za graczem, ograniczona do granic świata
+        float cameraLeftBoundary = viewport.getWorldWidth() / 2f;
+        float cameraRightBoundary = worldWidth - viewport.getWorldWidth() / 2f;
 
+        camera.position.x = Math.max(cameraLeftBoundary,
+            Math.min(player.getPosition().x + player.getWidth() / 2f, cameraRightBoundary));
+        camera.position.y = worldHeight / 2f; // Kamera jest statyczna w osi Y
         camera.update();
     }
+
 
     private void drawWorldBounds() {
         shapeRenderer.setProjectionMatrix(camera.combined);
