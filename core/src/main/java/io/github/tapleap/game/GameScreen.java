@@ -65,7 +65,7 @@ public class GameScreen implements Screen, InputProcessor {
         camera.update();
 
         // Przyciski
-        pauseButtonTexture = new Texture(Gdx.files.internal("triangle.png"));
+        pauseButtonTexture = new Texture(Gdx.files.internal("pause.png"));
         pauseButtonBounds = new Rectangle(10, viewport.getWorldHeight() - 110, 100, 100);
 
         Gdx.input.setInputProcessor(this);
@@ -93,7 +93,7 @@ public class GameScreen implements Screen, InputProcessor {
         }
 
         // Tło
-        Gdx.gl.glClearColor(0.8f, 0.8f, 0.8f, 1);
+        Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         game.batch.setProjectionMatrix(camera.combined);

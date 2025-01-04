@@ -47,9 +47,9 @@ public class LevelScreen implements Screen {
         camera.update();
 
         // Wczytanie tekstur przycisków
-        level1ButtonTexture = new Texture(Gdx.files.internal("triangle.png"));
-        level2ButtonTexture = new Texture(Gdx.files.internal("triangle.png"));
-        level3ButtonTexture = new Texture(Gdx.files.internal("triangle.png"));
+        level1ButtonTexture = new Texture(Gdx.files.internal("level1.png"));
+        level2ButtonTexture = new Texture(Gdx.files.internal("level2.png"));
+        level3ButtonTexture = new Texture(Gdx.files.internal("level3.png"));
 
         // Definicja prostokątów dla przycisków (pozycje w układzie świata)
         level1ButtonBounds = new Rectangle(300, 400, 200, 50);

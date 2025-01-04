@@ -26,7 +26,9 @@ public class StartScreen implements Screen {
     private Rectangle settingsButtonBounds;
     private Rectangle exitButtonBounds;
 
-    private Texture buttonTexture;
+    private Texture startButtonTexture;
+    private Texture settingsButtonTexture;
+    private Texture exitButtonTexture;
 
     public StartScreen(Main game) {
         this.game = game;
@@ -42,7 +44,9 @@ public class StartScreen implements Screen {
         buttonFont = new BitmapFont();
         buttonFont.getData().setScale(2);
 
-        buttonTexture = new Texture(Gdx.files.internal("triangle.png"));
+        startButtonTexture = new Texture(Gdx.files.internal("start.png"));
+        settingsButtonTexture = new Texture(Gdx.files.internal("settings.png"));
+        exitButtonTexture = new Texture(Gdx.files.internal("exit.png"));
 
         startButtonBounds = new Rectangle(300, 300, 200, 50);
         settingsButtonBounds = new Rectangle(300, 200, 200, 50);
@@ -56,7 +60,7 @@ public class StartScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         camera.update();
@@ -68,14 +72,14 @@ public class StartScreen implements Screen {
         titleFont.draw(batch, "TapLeap", 250, 550);
 
         // Draw buttons
-        batch.draw(buttonTexture, startButtonBounds.x, startButtonBounds.y, startButtonBounds.width, startButtonBounds.height);
-        buttonFont.draw(batch, "START", startButtonBounds.x + 50, startButtonBounds.y + 35);
+        batch.draw(startButtonTexture, startButtonBounds.x, startButtonBounds.y, startButtonBounds.width, startButtonBounds.height);
+        buttonFont.draw(batch, "", startButtonBounds.x + 50, startButtonBounds.y + 35);
 
-        batch.draw(buttonTexture, settingsButtonBounds.x, settingsButtonBounds.y, settingsButtonBounds.width, settingsButtonBounds.height);
-        buttonFont.draw(batch, "OPCJE", settingsButtonBounds.x + 50, settingsButtonBounds.y + 35);
+        batch.draw(settingsButtonTexture, settingsButtonBounds.x, settingsButtonBounds.y, settingsButtonBounds.width, settingsButtonBounds.height);
+        buttonFont.draw(batch, "", settingsButtonBounds.x + 50, settingsButtonBounds.y + 35);
 
-        batch.draw(buttonTexture, exitButtonBounds.x, exitButtonBounds.y, exitButtonBounds.width, exitButtonBounds.height);
-        buttonFont.draw(batch, "WYJŚCIE", exitButtonBounds.x + 40, exitButtonBounds.y + 35);
+        batch.draw(exitButtonTexture, exitButtonBounds.x, exitButtonBounds.y, exitButtonBounds.width, exitButtonBounds.height);
+        buttonFont.draw(batch, "", exitButtonBounds.x + 40, exitButtonBounds.y + 35);
 
         batch.end();
 
@@ -121,6 +125,8 @@ public class StartScreen implements Screen {
         batch.dispose();
         titleFont.dispose();
         buttonFont.dispose();
-        buttonTexture.dispose();
+        startButtonTexture.dispose();
+        exitButtonTexture.dispose();
+        settingsButtonTexture.dispose();
     }
 }
