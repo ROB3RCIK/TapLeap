@@ -15,12 +15,14 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import io.github.tapleap.end.GameOverScreen;
 import io.github.tapleap.Main;
 
 public class GameScreen implements Screen, InputProcessor {
     private Main game;
+    private String lang;
     private Player player;
     private List<Obstacle> obstacles;
     private CollisionChecker collisionChecker;
@@ -35,8 +37,9 @@ public class GameScreen implements Screen, InputProcessor {
     private float progress;
     private float playerSpeed; // Prędkość gracza
 
-    public GameScreen(Main game, int worldWidth, int[][] obstaclesArray, float playerSpeed) {
+    public GameScreen(Main game, int worldWidth, int[][] obstaclesArray, float playerSpeed, String lang) {
         this.game = game;
+        this.lang = lang;
 
         // Długość i wysokość planszy
         this.worldWidth = worldWidth;
@@ -88,7 +91,7 @@ public class GameScreen implements Screen, InputProcessor {
         // Sprawdzenie, czy gracz osiągnął 100%
         if (progress >= 100) {
             Gdx.app.log("GameScreen", "Player reached 100% of the map!");
-            game.setScreen(new GameOverScreen(game)); // Zmień na odpowiedni ekran
+            game.setScreen(new GameOverScreen(game,progress,lang)); // Zmień na odpowiedni ekran
             return;
         }
 
@@ -119,7 +122,7 @@ public class GameScreen implements Screen, InputProcessor {
         game.batch.end();
 
         // Obramowanie
-        drawWorldBounds();
+        // drawWorldBounds();
 
         // Kolizje
         checkCollision();
@@ -138,7 +141,12 @@ public class GameScreen implements Screen, InputProcessor {
     }
 
     private void drawProgress() {
-        String progressText = String.format("Progress: %.1f%%", progress);
+        String progressText;
+        if(Objects.equals(lang, "PL")) {
+            progressText = String.format("Postep: %.1f%%", progress);
+        } else {
+            progressText = String.format("Progress: %.1f%%", progress);
+        }
 
         // Ustawienie skali tekstu
         game.font.getData().setScale(4.0f); // Zwiększenie skali czcionki (wartość 2x większa)
@@ -212,7 +220,7 @@ public class GameScreen implements Screen, InputProcessor {
         Gdx.app.log("GameScreen", "Game Over");
         isGameOver = true;
 
-        game.setScreen(new GameOverScreen(game));
+        game.setScreen(new GameOverScreen(game,progress,lang));
     }
 
     @Override
@@ -224,7 +232,7 @@ public class GameScreen implements Screen, InputProcessor {
             touchPos.y - (camera.position.y - viewport.getWorldHeight() / 2)))
         {
             Gdx.app.log("GameScreen", "Pause button clicked!");
-            game.setScreen(new SettingsScreen(game,this)); // Przejście na ekran ustawień
+            game.setScreen(new SettingsScreen(game,this, lang)); // Przejście na ekran ustawień
             return true;
         }
         return false;

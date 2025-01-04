@@ -16,7 +16,7 @@ public class Player {
     private final float angle = 30f;
 
     public Player(float width, float height, float playerSpeed) {
-        texture = new Texture("triangle.png");
+        texture = new Texture("player.png");
         position = new Vector2(50, 50);
         hitbox = new Rectangle(position.x, position.y, width, height);
 
