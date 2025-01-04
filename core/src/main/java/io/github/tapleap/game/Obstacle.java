@@ -12,7 +12,7 @@ public class Obstacle {
     private Rectangle hitbox;
 
     public Obstacle(float x, float y, float width, float height) {
-        texture = new Texture("triangle.png");
+        texture = new Texture("obstacle.png");
         position = new Vector2(x,y);
         hitbox = new Rectangle(x,y,width,height);
     }
