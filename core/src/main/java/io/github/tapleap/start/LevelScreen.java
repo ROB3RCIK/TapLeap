@@ -19,29 +19,25 @@ public class LevelScreen implements Screen {
     private String lang;
     private OrthographicCamera camera;
     private FitViewport viewport;
-
-    // Stałe wymiary (takie same jak w StartScreen)
     private static final float WORLD_WIDTH = 800;
     private static final float WORLD_HEIGHT = 600;
     private static final float BUTTON_WIDTH = 200;
     private static final float BUTTON_HEIGHT = 50;
     private static final float BUTTON_SPACING = 20;
-
-    // Parametry poziomów
     private static final int LEVEL_1_WIDTH = 6000;
     private static final int LEVEL_2_WIDTH = 6000;
     private static final int LEVEL_3_WIDTH = 6000;
+    // Przeszkody
     private static final int[][] LEVEL_1_OBSTACLES = {{600, 300, 200, 200}, {1200, 500, 200, 200}, {2400, 700, 200, 200}, {3600, 400, 200, 200}, {5000, 600, 200, 200}};
     private static final int[][] LEVEL_2_OBSTACLES = {{600, 300, 200, 200}, {1200, 500, 200, 200}, {2400, 700, 200, 200}, {3600, 400, 200, 200}, {5000, 600, 200, 200}};
     private static final int[][] LEVEL_3_OBSTACLES = {{600, 300, 200, 200}, {1200, 500, 200, 200}, {2400, 700, 200, 200}, {3600, 400, 200, 200}, {5000, 600, 200, 200}};
+    // Predkosc poruszania sie gracza
     private static final float LEVEL_1_SPEED = 200f;
     private static final float LEVEL_2_SPEED = 300f;
     private static final float LEVEL_3_SPEED = 400f;
-
     private Texture level1ButtonTexture;
     private Texture level2ButtonTexture;
     private Texture level3ButtonTexture;
-
     private Rectangle level1ButtonBounds;
     private Rectangle level2ButtonBounds;
     private Rectangle level3ButtonBounds;
@@ -50,6 +46,7 @@ public class LevelScreen implements Screen {
         this.game = game;
         this.lang = lang;
 
+        // Ustawienia kamery
         camera = new OrthographicCamera();
         viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
         camera.position.set(WORLD_WIDTH / 2f, WORLD_HEIGHT / 2f, 0);
@@ -65,12 +62,12 @@ public class LevelScreen implements Screen {
             level3ButtonTexture = new Texture(Gdx.files.internal("level3.png"));
         }
 
-
+        // Inicjalizacja przyciskow
         initializeButtons();
     }
 
     private void initializeButtons() {
-        float centerX = (WORLD_WIDTH / 2f) - 10; // Tak samo jak w StartScreen
+        float centerX = (WORLD_WIDTH / 2f) - 10;
         float centerY = WORLD_HEIGHT / 2f;
 
         float totalHeight = (BUTTON_HEIGHT * 3) + (BUTTON_SPACING * 2);
@@ -137,6 +134,7 @@ public class LevelScreen implements Screen {
 
         game.batch.end();
 
+        // Obsluga klikniec przyciskow
         handleInput();
     }
 
@@ -156,6 +154,7 @@ public class LevelScreen implements Screen {
         }
     }
 
+    //Uruchomienie konkretnego poziomu
     private void startGame(int worldWidth, int[][] obstacles, float playerSpeed) {
         game.setScreen(new GameScreen(game, worldWidth, obstacles, playerSpeed, lang));
     }

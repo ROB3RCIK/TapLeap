@@ -25,17 +25,14 @@ public class StartScreen implements Screen, LangScreen {
     private OrthographicCamera camera;
     private SpriteBatch batch;
     private FitViewport viewport;
-
     private BitmapFont titleFont;
     private GlyphLayout titleLayout;
     private Rectangle startButtonBounds;
     private Rectangle settingsButtonBounds;
     private Rectangle exitButtonBounds;
-
     private Texture startButtonTexture;
     private Texture settingsButtonTexture;
     private Texture exitButtonTexture;
-
     private static final float WORLD_WIDTH = 800;
     private static final float WORLD_HEIGHT = 600;
     private static final float BUTTON_WIDTH = 200;
