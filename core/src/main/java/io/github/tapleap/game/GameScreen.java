@@ -17,10 +17,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import io.github.tapleap.LangScreen;
 import io.github.tapleap.end.GameOverScreen;
 import io.github.tapleap.Main;
 
-public class GameScreen implements Screen, InputProcessor {
+public class GameScreen implements Screen, InputProcessor, LangScreen {
     private Main game;
     private String lang;
     private Player player;
@@ -80,6 +81,10 @@ public class GameScreen implements Screen, InputProcessor {
         isGameOver = false;
     }
 
+    @Override
+    public void setLang(String lang) {
+        this.lang = lang;
+    }
 
     @Override
     public void render(float delta) {
