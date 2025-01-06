@@ -24,11 +24,9 @@ public class GameOverScreen implements Screen {
     private float score;
     private OrthographicCamera camera;
     private FitViewport viewport;
-
-    // Stałe wymiary
     private static final float WORLD_WIDTH = 800;
     private static final float WORLD_HEIGHT = 600;
-    private static final float RESTART_BUTTON_SIZE = 100; // Wymiar przycisku restart (kwadratowy)
+    private static final float RESTART_BUTTON_SIZE = 100;
     private static final float MENU_BUTTON_WIDTH = 200;
     private static final float MENU_BUTTON_HEIGHT = 50;
     private static final float BUTTON_SPACING = 20;
@@ -46,6 +44,7 @@ public class GameOverScreen implements Screen {
         this.score = score;
         this.lang = lang;
 
+        // Ustawienia kamery
         camera = new OrthographicCamera();
         viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
         camera.position.set(WORLD_WIDTH / 2f, WORLD_HEIGHT / 2f, 0);
@@ -65,6 +64,7 @@ public class GameOverScreen implements Screen {
         restartButtonTexture = new Texture(Gdx.files.internal("retry.png"));
         exitButtonTexture = new Texture(Gdx.files.internal("menu.png"));
 
+        // Inicjalizacja przyciskow
         initializeButtons();
     }
 
@@ -72,7 +72,7 @@ public class GameOverScreen implements Screen {
         float centerX = (WORLD_WIDTH / 2f) - 10;
         float centerY = WORLD_HEIGHT / 2f - 50;
 
-        // Przycisk restart (kwadratowy 100x100)
+        // Przycisk restart
         restartButtonBounds = new Rectangle(
             centerX - (RESTART_BUTTON_SIZE / 2),
             centerY + BUTTON_SPACING,
@@ -80,7 +80,7 @@ public class GameOverScreen implements Screen {
             RESTART_BUTTON_SIZE
         );
 
-        // Przycisk menu (200x50)
+        // Przycisk menu
         exitButtonBounds = new Rectangle(
             centerX - (MENU_BUTTON_WIDTH / 2),
             centerY - MENU_BUTTON_HEIGHT,
@@ -110,7 +110,7 @@ public class GameOverScreen implements Screen {
         // Rysowanie wyniku
         scoreFont.draw(game.batch, scoreLayout,
             (WORLD_WIDTH - scoreLayout.width) / 2,
-            WORLD_HEIGHT - 150); // Wynik 150 jednostek od góry
+            WORLD_HEIGHT - 150); //
 
         // Rysowanie przycisku restart (100x100)
         game.batch.draw(restartButtonTexture,
