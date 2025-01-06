@@ -21,33 +21,31 @@ public class SettingsScreen implements Screen, InputProcessor {
     private LangScreen previousScreen;
     private Texture backButtonTexture;
     private Rectangle backButtonBounds;
-
     private Texture languageButtonTexture;
     private Texture languageButtonTexturePL;
     private Rectangle languageButtonBounds;
-
     private OrthographicCamera camera;
     private FitViewport viewport;
-
     private static final float WORLD_WIDTH = 800;
     private static final float WORLD_HEIGHT = 600;
     private static final float BUTTON_SIZE = 100;
     private static final float LANG_BUTTON_WIDTH = 200;
     private static final float LANG_BUTTON_HEIGHT = 50;
-    private static final float MARGIN = 10; // Taki sam margines jak w GameScreen
+    private static final float MARGIN = 10;
 
     public SettingsScreen(Main game, LangScreen previousScreen, String lang) {
         this.game = game;
         this.lang = lang;
         this.previousScreen = previousScreen;
 
+        // Ustawienia kamery
         camera = new OrthographicCamera();
         viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
         camera.position.set(WORLD_WIDTH / 2f, WORLD_HEIGHT / 2f, 0);
 
         backButtonTexture = new Texture(Gdx.files.internal("pause.png"));
 
-        // Wczytaj tekstury przycisku językowego
+        // Wczytanie tekstury przycisku językowego
         languageButtonTexture = new Texture(Gdx.files.internal("lang.png"));
         languageButtonTexturePL = new Texture(Gdx.files.internal("lang_pl.png"));
 
@@ -151,6 +149,13 @@ public class SettingsScreen implements Screen, InputProcessor {
     }
 
     @Override
+    public void dispose() {
+        backButtonTexture.dispose();
+        languageButtonTexture.dispose();
+        languageButtonTexturePL.dispose();
+    }
+
+    @Override
     public void pause() {}
 
     @Override
@@ -158,13 +163,6 @@ public class SettingsScreen implements Screen, InputProcessor {
 
     @Override
     public void hide() {}
-
-    @Override
-    public void dispose() {
-        backButtonTexture.dispose();
-        languageButtonTexture.dispose();
-        languageButtonTexturePL.dispose();
-    }
 
     @Override
     public boolean keyDown(int keycode) { return false; }
