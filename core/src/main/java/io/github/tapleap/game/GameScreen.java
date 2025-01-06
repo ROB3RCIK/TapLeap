@@ -184,21 +184,6 @@ public class GameScreen implements Screen, InputProcessor, LangScreen {
         camera.update();
     }
 
-
-    private void drawWorldBounds() {
-        shapeRenderer.setProjectionMatrix(camera.combined);
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(1, 0, 0, 1);
-
-        float borderWidth = 10;
-        shapeRenderer.rect(0, 0, worldWidth, borderWidth);
-        shapeRenderer.rect(0, 0, borderWidth, worldHeight);
-        shapeRenderer.rect(0, worldHeight - borderWidth, worldWidth, borderWidth);
-        shapeRenderer.rect(worldWidth - borderWidth, 0, borderWidth, worldHeight);
-
-        shapeRenderer.end();
-    }
-
     private void drawPauseButton() {
         game.batch.draw(
             pauseButtonTexture,
@@ -249,21 +234,6 @@ public class GameScreen implements Screen, InputProcessor, LangScreen {
     }
 
     @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
-    }
-
-    @Override
     public void dispose() {
         player.dispose();
         for (Obstacle obstacle : obstacles) {
@@ -278,6 +248,21 @@ public class GameScreen implements Screen, InputProcessor, LangScreen {
     public void show() {
         Gdx.input.setInputProcessor(this);
         Gdx.app.log("GameScreen", "Game screen is shown");
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
+
     }
 
     @Override
