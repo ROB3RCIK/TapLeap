@@ -17,10 +17,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import io.github.tapleap.LangScreen;
 import io.github.tapleap.end.GameOverScreen;
 import io.github.tapleap.Main;
 
-public class GameScreen implements Screen, InputProcessor {
+public class GameScreen implements Screen, InputProcessor, LangScreen {
     private Main game;
     private String lang;
     private Player player;
@@ -80,6 +81,10 @@ public class GameScreen implements Screen, InputProcessor {
         isGameOver = false;
     }
 
+    @Override
+    public void setLang(String lang) {
+        this.lang = lang;
+    }
 
     @Override
     public void render(float delta) {
@@ -179,21 +184,6 @@ public class GameScreen implements Screen, InputProcessor {
         camera.update();
     }
 
-
-    private void drawWorldBounds() {
-        shapeRenderer.setProjectionMatrix(camera.combined);
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(1, 0, 0, 1);
-
-        float borderWidth = 10;
-        shapeRenderer.rect(0, 0, worldWidth, borderWidth);
-        shapeRenderer.rect(0, 0, borderWidth, worldHeight);
-        shapeRenderer.rect(0, worldHeight - borderWidth, worldWidth, borderWidth);
-        shapeRenderer.rect(worldWidth - borderWidth, 0, borderWidth, worldHeight);
-
-        shapeRenderer.end();
-    }
-
     private void drawPauseButton() {
         game.batch.draw(
             pauseButtonTexture,
@@ -244,21 +234,6 @@ public class GameScreen implements Screen, InputProcessor {
     }
 
     @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
-    }
-
-    @Override
     public void dispose() {
         player.dispose();
         for (Obstacle obstacle : obstacles) {
@@ -273,6 +248,21 @@ public class GameScreen implements Screen, InputProcessor {
     public void show() {
         Gdx.input.setInputProcessor(this);
         Gdx.app.log("GameScreen", "Game screen is shown");
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
+
     }
 
     @Override

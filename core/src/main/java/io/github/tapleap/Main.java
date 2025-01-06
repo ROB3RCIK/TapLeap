@@ -13,14 +13,13 @@ import io.github.tapleap.start.StartScreen;
 public class Main extends Game {
     public SpriteBatch batch;
     public BitmapFont font;
-    public String lang="PL";
+    public String lang="EN";
 
     @Override
     public void create() {
         batch = new SpriteBatch();
         font = new BitmapFont();
         setScreen(new StartScreen(this, lang));
-//        setScreen(new GameScreen(this,5000));
     }
 
     @Override
