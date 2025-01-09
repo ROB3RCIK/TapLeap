@@ -43,7 +43,7 @@ public class SettingsScreen implements Screen, InputProcessor {
         viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
         camera.position.set(WORLD_WIDTH / 2f, WORLD_HEIGHT / 2f, 0);
 
-        backButtonTexture = new Texture(Gdx.files.internal("pause.png"));
+        backButtonTexture = new Texture(Gdx.files.internal("resume.png"));
 
         // Wczytanie tekstury przycisku językowego
         languageButtonTexture = new Texture(Gdx.files.internal("lang.png"));

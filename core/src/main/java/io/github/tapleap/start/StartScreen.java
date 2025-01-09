@@ -132,7 +132,7 @@ public class StartScreen implements Screen, LangScreen {
         batch.begin();
 
         titleFont.draw(batch, "TapLeap",
-            (WORLD_WIDTH - titleLayout.width) / 2,
+            (WORLD_WIDTH - titleLayout.width) / 2 - 20,
             WORLD_HEIGHT - 50);
 
         batch.draw(startButtonTexture,

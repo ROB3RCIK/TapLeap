@@ -17,7 +17,7 @@ public class Player {
 
     public Player(float width, float height, float playerSpeed) {
         texture = new Texture("player.png");
-        position = new Vector2(50, 50);
+        position = new Vector2(50, 500);
         hitbox = new Rectangle(position.x, position.y, width, height);
 
         // Predkość i kąt lotu
