@@ -62,11 +62,11 @@ public class GameScreen implements Screen, InputProcessor, LangScreen {
         shapeRenderer = new ShapeRenderer();
 
         // Ustawienie kamery
-        camera = new OrthographicCamera();
-        float aspectRatio = (float) Gdx.graphics.getWidth() / Gdx.graphics.getHeight();
-        viewport = new FitViewport(worldHeight * aspectRatio, worldHeight, camera);
-        camera.position.set(viewport.getWorldWidth() / 2f, worldHeight / 2f, 0);
-        camera.update();
+        camera = new OrthographicCamera(); // Tworzy nową instancje kamery
+        float aspectRatio = (float) Gdx.graphics.getWidth() / Gdx.graphics.getHeight(); // Stosunek szerokości do długości pozwalający na odpowiednie dopasowanie ekranu
+        viewport = new FitViewport(worldHeight * aspectRatio, worldHeight, camera); // Tworzy widok, który dopasowuje się do wymiarów ekranu zachowując proporcje
+        camera.position.set(viewport.getWorldWidth() / 2f, worldHeight / 2f, 0); // Ustawia pozycje początkową kamery
+        camera.update(); // Aktualizuje kamere
 
         // Przyciski
         pauseButtonTexture = new Texture(Gdx.files.internal("pause.png"));
@@ -96,7 +96,7 @@ public class GameScreen implements Screen, InputProcessor, LangScreen {
         // Sprawdzenie, czy gracz osiągnął 100%
         if (progress >= 100) {
             Gdx.app.log("GameScreen", "Player reached 100% of the map!");
-            game.setScreen(new GameOverScreen(game,progress,lang)); // Zmień na odpowiedni ekran
+            game.setScreen(new GameOverScreen(game,progress,lang)); // Zmiana na ekran z wynikiem
             return;
         }
 
@@ -134,12 +134,12 @@ public class GameScreen implements Screen, InputProcessor, LangScreen {
     }
 
     private void updateProgress() {
-        float playerPosition = player.getPosition().x;
+        float playerPosition = player.getPosition().x; // Pobranie pozycji gracza
         float threshold = worldWidth * 0.95f;
 
+        // Obliczanie stosunku przebytego przez gracza dystanu do długości poziomu
         if (playerPosition >= threshold) {
             progress = 100;
-            endGame();
         } else {
             progress = Math.min(95, (playerPosition / threshold) * 95);
         }
@@ -174,10 +174,11 @@ public class GameScreen implements Screen, InputProcessor, LangScreen {
     }
 
     private void updateCamera() {
-        // Kamera podąża za graczem, ograniczona do granic świata
+        // Kamera podążająca za graczem, ograniczona do granic planszy
         float cameraLeftBoundary = viewport.getWorldWidth() / 2f;
         float cameraRightBoundary = worldWidth - viewport.getWorldWidth() / 2f;
 
+        // Dynamiczna aktualizacja pozycji kamery na podstawie pozycji gracza
         camera.position.x = Math.max(cameraLeftBoundary,
             Math.min(player.getPosition().x + player.getWidth() / 2f, cameraRightBoundary));
         camera.position.y = worldHeight / 2f; // Kamera jest statyczna w osi Y

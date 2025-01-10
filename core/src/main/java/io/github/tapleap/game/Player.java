@@ -16,22 +16,21 @@ public class Player {
     private final float angle = 30f;
 
     public Player(float width, float height, float playerSpeed) {
-        texture = new Texture("player.png");
-        position = new Vector2(50, 500);
-        hitbox = new Rectangle(position.x, position.y, width, height);
+        texture = new Texture("player.png"); // Tekstura gracza
+        position = new Vector2(50, 500); // Pozycja startowa
+        hitbox = new Rectangle(position.x, position.y, width, height); // Definicja Hitboxu gracza jako prostokąt
 
-        // Predkość i kąt lotu
-        velocity = new Vector2(playerSpeed, 0);
-        velocity.rotateDeg(angle);
+        velocity = new Vector2(playerSpeed, 0); // Przypisanie graczowi prędkości poruszania się
+        velocity.rotateDeg(angle); // Kąt lotu gracza
     }
 
 
     public void update(float delta) {
-        position.add(velocity.cpy().scl(delta));
+        position.add(velocity.cpy().scl(delta)); // Aktualizuje pozycje gracza w grze
 
-        hitbox.setPosition(position.x, position.y);
+        hitbox.setPosition(position.x, position.y); // Aktualizuje Hitboxy
 
-        //Zmiana kierunku lotu
+        // Zmiana kierunku lotu poprzez kliknięcie w ekran
         if(Gdx.input.justTouched()) {
             velocity.y *= -1;
         }
